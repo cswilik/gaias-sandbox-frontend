@@ -1,7 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from '../logo.svg';
+import React, {useState, useEffect} from 'react';
+import Login from "./Login"
+import MainPage from "./MainPage"
 
 function App() {
+  const [ users, setUsers] = useState([])
+
+
+  
+  useEffect(() => {
+    fetch(`http://localhost:3000/users`)
+      .then(resp => resp.json())
+      .then(data => setUsers(data))
+  }, [])
+  
+  
   return (
     <div className="App">
       <header className="App-header">
