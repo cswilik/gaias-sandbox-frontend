@@ -18,6 +18,7 @@ function App() {
   return (
     <div className="App">
       <Login users={users} onSetCurrentUser={setCurrentUser} />
+      <MainPage currentUser={currentUser} />
     </div>
   );
 }
