@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 
 
 function Login({users, onCurrentUser}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const history = useHistory()
     
     function handleLogin(event){
         event.preventDefault();
@@ -13,11 +15,13 @@ function Login({users, onCurrentUser}) {
         })
 
         onCurrentUser(attemptedLogin[0])
+        history.push('/mainpage')
+
     }
 
     return(
         <div>
-            <header>Gaia Sandbox</header>
+            
             <form onSubmit={handleLogin}>
                 <label>Login</label> 
                 <input type="text" name="username" value={username} placeholder="Enter Username" onChange={(evt) => setUsername(evt.target.value)}></input>

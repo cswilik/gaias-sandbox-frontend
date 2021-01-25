@@ -1,11 +1,13 @@
 import React from "react";
 import WeatherDetail from "./WeatherDetail";
 
-function WeatherDetailPopup({allWeathers}){
+function WeatherDetailPopup({allWeathers, selectedRegion}){
+    console.log(selectedRegion)
+    const weather = allWeathers.filter((weather) => weather.region.id === selectedRegion)[0]
+    console.log(weather)
     return(
         <div>
-            <p>POPUP</p>
-            <WeatherDetail/>
+            <WeatherDetail weather={weather} />
         </div>
     );
 }

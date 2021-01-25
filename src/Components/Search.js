@@ -2,7 +2,11 @@ import React from "react";
 
 function Search({onSelectRegion}){
     return(
-        <div>SEARCH</div>
+        <div>
+            <input
+            type="text"
+            placeholder="Search..." />
+        </div>
     );
 }
 

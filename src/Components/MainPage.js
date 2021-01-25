@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import MapContainer from "./MapContainer";
 import WeatherDetailPopup from "./WeatherDetailPopup";
 import WeatherScroller from "./WeatherScroller";
+import Search from "./Search"
 
 function MainPage({currentUser}) {
     const [weathers, setWeathers] = useState([])
     const [regions, setRegions] = useState([])
+    const [selectedRegion, setSelectedRegion] = useState(8)
+    const [clickedRegion, setClickedRegion] = useState(false)
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers`)
@@ -19,12 +21,15 @@ function MainPage({currentUser}) {
         .then(data => setRegions(data))
     }, [])
 
+    function handleWeatherPopup() {
+        setClickedRegion(!clickedRegion)
+    }
+
     return(
-        <div>
-            <p>This is the main page!!!</p>
-            <MapContainer allWeathers={weathers} allRegions={regions} />
-            <WeatherDetailPopup allWeathers={weathers} />
+        <div className="main-page" onClick={handleWeatherPopup}>
             <WeatherScroller allWeathers={weathers} user={currentUser} />
+            <Search onSelectRegion={setSelectedRegion}/>
+            {clickedRegion ? <WeatherDetailPopup allWeathers={weathers} selectedRegion={selectedRegion}/> : null}
         </div>
     );
 }
