@@ -16,6 +16,7 @@ function App() {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/users`)
       .then(resp => resp.json())
       .then(data => {
+        console.log(data)
         setUsers(data)
       })
   }, [])

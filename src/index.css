@@ -27,7 +27,7 @@ code {
 }
 
 .main-page {
-  background: url("./images/RegionMap.png") no-repeat center center;
+  /* background: url("./images/RegionMap.png") no-repeat center center; */
   background-size: contain;
   width: 100vw;
   height: 100vh;
@@ -56,4 +56,9 @@ code {
   border: 1px solid #888;
   height: 50%;
   /* width: 80%; */
+}
+
+.video-div {
+  position: absolute;
+  z-index: 1000;
 }
