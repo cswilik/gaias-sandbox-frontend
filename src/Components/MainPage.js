@@ -9,6 +9,7 @@ function MainPage({currentUser}) {
     const [weathers, setWeathers] = useState([])
     const [regions, setRegions] = useState([])
     const [selectedRegion, setSelectedRegion] = useState(22)
+    const [search, setSearch] = useState("")
     
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers`)
@@ -30,10 +31,10 @@ function MainPage({currentUser}) {
                 return weather;
             }
         })
-        
         setWeathers(updatedWeathers)
     }
 
+   
 
     const featureGroups = regions.map((region) => {
         const rectangle = [
@@ -67,7 +68,7 @@ function MainPage({currentUser}) {
         )
     })
 
-    const TheMap =  () => {
+    const TheMap = () => {
         const position = [37.0902, - 95.7129]
 
         return (
@@ -76,23 +77,27 @@ function MainPage({currentUser}) {
             zoom={5}
             style={{ width: '80%', height: '80%', margin: "auto" }}
             >
-            <TileLayer
-                url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
-                attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-            />
+                <TileLayer
+                    url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+                    attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                />
 
-            {featureGroups}
-           
-            <Marker position={position}>
-            </Marker>
+                {featureGroups}
+            
+                <Marker position={position}>
+                </Marker>
             </MapContainer>
         )
     }
+
+
+
+
    
     return(
         <div className="main-page">
             <WeatherScroller allWeathers={weathers} regions={regions}/>
-            <Search onSelectRegion={setSelectedRegion}/>
+            <Search onSelectRegion={setSelectedRegion} search={search} setSearch={setSearch}/>
             <TheMap />
         </div>
     );

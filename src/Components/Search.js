@@ -1,11 +1,16 @@
 import React from "react";
 
-function Search({onSelectRegion}){
+function Search({onSelectRegion, search, setSearch}){
+
+    console.log(search)
     return(
         <div>
             <input
             type="text"
-            placeholder="Search..." />
+            value={search}
+            placeholder="Search..." 
+            onChange={(evt) => {setSearch(evt.target.value)}}
+            />
         </div>
     );
 }
