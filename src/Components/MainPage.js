@@ -36,23 +36,34 @@ function MainPage({currentUser}) {
         setWeathers(updatedWeathers)
     }
 
+    
     function handleNewWeather(newWeather) {
         const filteredRegions = regions.map((region) => {
-            const newWeathers = [...region.weathers, newWeather]
-            return({
-                name: region.name,
-                latMin: region.latMin,
-                latMax: region.latMax,
-                longMin: region.longMin,
-                longMax: region.longMax,
-                centerLat: region.centerLat,
-                centerLong: region.centerLong,
-                weathers: newWeathers
-            });
+            if(region.id === newWeather.region.id){
+                const newWeathers = [...region.weathers, newWeather]
+                return({
+                    name: region.name,
+                    latMin: region.latMin,
+                    latMax: region.latMax,
+                    longMin: region.longMin,
+                    longMax: region.longMax,
+                    centerLat: region.centerLat,
+                    centerLong: region.centerLong,
+                    weathers: newWeathers,
+                    id: region.id
+                });
+            }else{
+                return region;
+            }
         })
+        console.log(filteredRegions)
         setRegions(filteredRegions)
-        setWeathers([...weathers, newWeather])
+        const weathArr = [...weathers, newWeather]
+        console.log(weathArr)
+        setWeathers(weathArr)
     }
+
+
 
    function handleDelete(id) {
        const filteredWeathers = weathers.filter(weather => {
@@ -71,7 +82,8 @@ function MainPage({currentUser}) {
                 longMax: region.longMax,
                 centerLat: region.centerLat,
                 centerLong: region.centerLong,
-                weathers: newWeathers
+                weathers: newWeathers,
+                id: region.id
            });
        })
        setRegions(filteredRegions)
@@ -90,6 +102,8 @@ function MainPage({currentUser}) {
             const weather = weathers.find((weather) => {
                 return weather.region.id === region.id
             })
+            
+            
 
             return(
                 <FeatureGroup key={region.id}>
@@ -115,7 +129,7 @@ function MainPage({currentUser}) {
                 <FeatureGroup key={region.id}>
                     <ImageOverlay url="https://j.gifs.com/vq8EXV.gif" bounds={rectangle} opacity={0.6} play={false}/>
                     <Popup>
-                        <NewWeatherForm currentUser={currentUser} region={region} />
+                        <NewWeatherForm currentUser={currentUser} region={region} onNewWeather={handleNewWeather}/>
                     </Popup>
                     <Rectangle bounds={rectangle}/>
                 </FeatureGroup>

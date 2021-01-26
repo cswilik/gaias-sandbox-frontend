@@ -26,7 +26,10 @@ function NewWeatherForm({region, currentUser, onNewWeather}) {
             },
             body: JSON.stringify(newWeather),
         }).then(r => r.json())
-        .then(data => onNewWeather(data))
+        .then(data => {
+            console.log(data)
+            onNewWeather(data)
+        })
     }
     
     return (  
