@@ -4,12 +4,12 @@ import Search from "./Search"
 import { MapContainer, TileLayer, Marker, Popup, FeatureGroup, Rectangle, ImageOverlay } from 'react-leaflet'
 import WeatherDetail from "./WeatherDetail";
 import WeatherForm from "./WeatherForm";
+import NewWeatherForm from "./NewWeatherForm";
 
 function MainPage({currentUser}) {
     const [weathers, setWeathers] = useState([])
     const [regions, setRegions] = useState([])
-    const [selectedRegion, setSelectedRegion] = useState(22)
-    const [search, setSearch] = useState("")
+    const [position, setPosition] = useState([37.0902, - 95.7129])
     
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers`)
@@ -23,6 +23,8 @@ function MainPage({currentUser}) {
         .then(data => setRegions(data))
     }, [])
 
+   
+
     function handleWeatherForm(newFormData) {
         const updatedWeathers =  weathers.map(weather => {
             if (weather.id === newFormData.id) {
@@ -34,7 +36,49 @@ function MainPage({currentUser}) {
         setWeathers(updatedWeathers)
     }
 
-   
+    function handleNewWeather(newWeather) {
+        const filteredRegions = regions.map((region) => {
+            const newWeathers = [...region.weathers, newWeather]
+            return({
+                name: region.name,
+                latMin: region.latMin,
+                latMax: region.latMax,
+                longMin: region.longMin,
+                longMax: region.longMax,
+                centerLat: region.centerLat,
+                centerLong: region.centerLong,
+                weathers: newWeathers
+            });
+        })
+        setRegions(filteredRegions)
+        setWeathers([...weathers, newWeather])
+    }
+
+   function handleDelete(id) {
+       const filteredWeathers = weathers.filter(weather => {
+          return (weather.id !== id) 
+       })
+
+       const filteredRegions = regions.map((region) => {
+           const newWeathers = region.weathers.filter((weather) => {
+                return weather.id !== id
+           })
+           return({
+                name: region.name,
+                latMin: region.latMin,
+                latMax: region.latMax,
+                longMin: region.longMin,
+                longMax: region.longMax,
+                centerLat: region.centerLat,
+                centerLong: region.centerLong,
+                weathers: newWeathers
+           });
+       })
+       setRegions(filteredRegions)
+       console.log(filteredRegions)
+       console.log(regions)
+       setWeathers(filteredWeathers)
+    }
 
     const featureGroups = regions.map((region) => {
         const rectangle = [
@@ -42,34 +86,44 @@ function MainPage({currentUser}) {
             [region["latMax"], region["longMax"]]
         ]
 
-        const weather = weathers.find((weather) => {
-            return weather.region.id === region.id
-        })
+        if(region.weathers.length > 0){
+            const weather = weathers.find((weather) => {
+                return weather.region.id === region.id
+            })
 
-        return(
-            <FeatureGroup key={region.id}>
-                <ImageOverlay url="https://media.giphy.com/media/3ohzdUimZF7zrY0fWo/giphy.gif" bounds={rectangle} opacity={0.6} play={false}/>
-                <Popup>
-                    <div className="flip-card">
-                        <div className="flip-card-inner">
-                            <div className="flip-card-front">
+            return(
+                <FeatureGroup key={region.id}>
+                    <ImageOverlay url="https://media.giphy.com/media/3ohzdUimZF7zrY0fWo/giphy.gif" bounds={rectangle} opacity={0.6} play={false}/>
+                    <Popup>
+                        <div className="flip-card">
+                            <div className="flip-card-inner">
+                                <div className="flip-card-front">
 
-                                <WeatherDetail region={region} weather={weather} />
-                            </div>
-                            <div className="flip-card-back">
-                                <WeatherForm region={region} weather={weather} onWeatherFormSubmit={handleWeatherForm}/>
+                                    <WeatherDetail region={region} weather={weather} />
+                                </div>
+                                <div className="flip-card-back">
+                                    <WeatherForm region={region} weather={weather} onWeatherFormSubmit={handleWeatherForm} onSetPosition={setPosition} onDelete={handleDelete}/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Popup>
-                <Rectangle bounds={rectangle}>
-                </Rectangle>
-            </FeatureGroup>
-        )
+                    </Popup>
+                    <Rectangle bounds={rectangle} />
+                </FeatureGroup>
+            )
+        }else {
+            return(
+                <FeatureGroup key={region.id}>
+                    <ImageOverlay url="https://j.gifs.com/vq8EXV.gif" bounds={rectangle} opacity={0.6} play={false}/>
+                    <Popup>
+                        <NewWeatherForm currentUser={currentUser} region={region} />
+                    </Popup>
+                    <Rectangle bounds={rectangle}/>
+                </FeatureGroup>
+            );
+        }
     })
 
     const TheMap = () => {
-        const position = [37.0902, - 95.7129]
 
         return (
            <MapContainer
@@ -97,11 +151,10 @@ function MainPage({currentUser}) {
     return(
         <div className="main-page">
             <WeatherScroller allWeathers={weathers} regions={regions}/>
-            <Search onSelectRegion={setSelectedRegion} search={search} setSearch={setSearch}/>
+            <Search onSetPosition={setPosition} />
             <TheMap />
         </div>
     );
 }
-
 
 export default MainPage;

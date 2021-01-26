@@ -1,54 +1,42 @@
-import React, {useState} from 'react';
+import React, {useState} from "react"
 
-function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDelete}) {
-    const [description, setDescription] = useState(weather.description)
-    const [temp, setTemp] = useState(weather.temp)
-    const [rain, setRain] = useState(weather.rain)
-    const [cloud, setCloud] = useState(weather.cloud)
-    const [wind, setWind] = useState(weather.wind)
+function NewWeatherForm({region, currentUser, onNewWeather}) {
+    const [description, setDescription] = useState("")
+    const [temp, setTemp] = useState(1)
+    const [rain, setRain] = useState(1)
+    const [cloud, setCloud] = useState(1)
+    const [wind, setWind] = useState(1)
 
-    const formData = {
-        id: weather.id,
+    const newWeather = {
         description: description,
         temp: temp,
         rain: rain,
         cloud: cloud,
-        wind: wind
+        wind: wind,
+        region_id: region.id,
+        user_id: currentUser.id
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers/${weather.id}`, {
-            method: 'PATCH',
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers`, {
+            method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
-        }).then(resp => resp.json())
-        .then(data => {
-            onSetPosition([region.centerLat, region.centerLong])
-            onWeatherFormSubmit(data)})
+            body: JSON.stringify(newWeather),
+        }).then(r => r.json())
+        .then(data => onNewWeather(data))
     }
-
-    function handleDelete() {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers/${weather.id}`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-        }).then(resp => resp.json())
-            .then(onDelete(weather.id))
-    }
-   
-    return(
-        <>
+    
+    return (  
         <form onSubmit={handleSubmit}>
-            <label>CONTROL THE WEATHER</label>
+            <label>CREATE A WEATHER</label>
             <br></br>
-            <input type="text" value={description} placeholder={weather.description} onChange={(evt) => {setDescription(evt.target.value)}}></input>
+            <input type="text" value={description} placeholder="describe the conditions" onChange={(evt) => {setDescription(evt.target.value)}}></input>
             <br></br>
             <select id="temp" name="temp" value={temp} onChange={(evt) => {setTemp(evt.target.value)}}>
-                <option value="1">artic cold</option>
+    a            <option value="1">artic cold</option>
                 <option value="2">below feezing</option>
                 <option value="3">cold</option>
                 <option value="4">warm</option>
@@ -85,11 +73,7 @@ function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDel
             <br></br>
             <button type="submit">Submit</button>
         </form>
-        <br></br>
-        <button onClick={handleDelete}>Apocalypse Now!!!!</button>
-        </>
-    );
-
+    )
 }
 
-export default WeatherForm;
+export default NewWeatherForm;
