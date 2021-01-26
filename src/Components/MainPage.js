@@ -3,6 +3,7 @@ import WeatherDetailPopup from "./WeatherDetailPopup";
 import WeatherScroller from "./WeatherScroller";
 import Search from "./Search"
 
+
 function MainPage({currentUser}) {
     const [weathers, setWeathers] = useState([])
     const [regions, setRegions] = useState([])
