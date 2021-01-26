@@ -58,7 +58,89 @@ code {
   /* width: 80%; */
 }
 
-.video-div {
+.leaflet-popup-content-wrapper{
+  background-color: black;
+  color: white;
+}
+
+.leaflet-popup-tip-container {
+  color: black;
+}
+
+/* OUTER CONTAINER */
+.tcontainer {
+  width: 100%;
+  overflow: hidden; /* Hide scroll bar */
+}
+ 
+/* MIDDLE CONTAINER */
+.ticker-wrap {
+  width: 100%;
+  padding-left: 100%; /* Push contents to right side of screen */
+  background-color: #eee;
+}
+
+/* INNER CONTAINER */
+@keyframes ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+.ticker-move {
+  /* Basically move items from right side of screen to left in infinite loop */
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 100%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-name: ticker;
+  animation-duration: 40s;
+}
+.ticker-move:hover{
+  animation-play-state: paused; /* Pause scroll on mouse hover */
+}
+
+/* ITEMS */
+.ticker-item{
+  display: inline-block; /* Lay items in a horizontal line */
+  padding: 0 2rem;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 300px;
+  height: 200px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
   position: absolute;
-  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: dodgerblue;
+  color: white;
+  transform: rotateY(180deg);
 }

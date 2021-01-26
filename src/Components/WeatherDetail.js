@@ -1,6 +1,6 @@
 import React from "react";
 
-function WeatherDetail({weather}) {
+function WeatherDetail({weather, region}) {
     const tempScale = {
         1: "artic cold",
         2: "below feezing",
@@ -36,15 +36,15 @@ function WeatherDetail({weather}) {
         5: "overcast",
         6: "blots out the sky"
     }
-    console.log(weather.description)
-
+    
     return(
-        <div className="modal-content">
-            <p>desc: {weather.description}</p>
-            <p>temp: {tempScale[weather.temp]}</p>
-            <p>wind: {windScale[weather.wind]}</p>
-            <p>rain: {rainScale[weather.rain]}</p>
-            <p>cloud: {cloudScale[weather.cloud]}</p>
+        <div >
+            <h2>{region.name}</h2>
+            <p><b>Description:</b> {weather.description}</p>
+            <p>Temp: {tempScale[weather.temp]}</p>
+            <p>Wind: {windScale[weather.wind]}</p>
+            <p>Rain: {rainScale[weather.rain]}</p>
+            <p>Cloud: {cloudScale[weather.cloud]}</p>
         </div>
     );
 }
