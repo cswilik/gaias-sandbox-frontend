@@ -50,10 +50,10 @@ function NewWeatherForm({region, currentUser, onNewWeather}) {
             <select id="rain" name="rain" value={rain} onChange={(evt) => {setRain(evt.target.value)}}>
                 <option value="1">No Rain</option>
                 <option value="2">Misty</option>
-                <option value="3">Light Drizzle</option>
-                <option value="4">Rainy</option>
-                <option value="5">Heavy Rain</option>
-                <option value="6">Torrential Downpour</option>
+                <option value="3">Rainy</option>
+                <option value="4">Torrential Downpour</option>
+                <option value="5">Light Snow</option>
+                <option value="6">Blizzard</option>
             </select>
             <br></br>
             <select id="cloud" name="cloud" value={cloud} onChange={(evt) => {setCloud(evt.target.value)}}>

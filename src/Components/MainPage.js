@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, FeatureGroup, Rectangle, ImageO
 import WeatherDetail from "./WeatherDetail";
 import WeatherForm from "./WeatherForm";
 import NewWeatherForm from "./NewWeatherForm";
+import { rainGifs, tempColors } from "./HashMaps";
 
 function MainPage({currentUser}) {
     const [weathers, setWeathers] = useState([])
@@ -87,15 +88,6 @@ function MainPage({currentUser}) {
        setWeathers(filteredWeathers)
     }
 
-    const tempColors = {
-        "1": "#42A5F5",
-        "2": "#3F51B5",
-        "3": "#5E35B1",
-        "4": "#7B1FA2",
-        "5": "#AD1457",
-        "6": "#B71C1C"
-    } 
-
     const featureGroups = regions.map((region) => {
         const rectangle = [
             [region["latMin"], region["longMin"]],
@@ -109,7 +101,7 @@ function MainPage({currentUser}) {
         if(weather){
             return(
                 <FeatureGroup key={region.id}>
-                    <ImageOverlay url="https://media.giphy.com/media/3ohzdUimZF7zrY0fWo/giphy.gif" bounds={rectangle} opacity={0.6} play={false}/>
+                    <ImageOverlay url={rainGifs[weather.rain]} bounds={rectangle} opacity={0.7} play={false}/>
                     <Popup>
                         <div className="flip-card">
                             <div className="flip-card-inner">
@@ -129,7 +121,7 @@ function MainPage({currentUser}) {
         }else {
             return(
                 <FeatureGroup key={region.id}>
-                    <ImageOverlay url="https://j.gifs.com/vq8EXV.gif" bounds={rectangle} opacity={0.6} play={false}/>
+                    <ImageOverlay url="https://media.giphy.com/media/XrNry0aqYWEhi/giphy.gif" bounds={rectangle} opacity={0.8} play={false}/>
                     <Popup>
                         <NewWeatherForm currentUser={currentUser} region={region} onNewWeather={handleNewWeather}/>
                     </Popup>
@@ -138,7 +130,7 @@ function MainPage({currentUser}) {
             );
         }
     })
-
+// "https://j.gifs.com/vq8EXV.gif"
     const TheMap = () => {
 
         return (
