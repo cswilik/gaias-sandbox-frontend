@@ -23,8 +23,6 @@ function MainPage({currentUser}) {
         .then(data => setRegions(data))
     }, [])
 
-   
-
     function handleWeatherForm(newFormData) {
         const updatedWeathers =  weathers.map(weather => {
             if (weather.id === newFormData.id) {
@@ -36,61 +34,67 @@ function MainPage({currentUser}) {
         setWeathers(updatedWeathers)
     }
 
-    
     function handleNewWeather(newWeather) {
-        const filteredRegions = regions.map((region) => {
-            if(region.id === newWeather.region.id){
-                const newWeathers = [...region.weathers, newWeather]
-                return({
-                    name: region.name,
-                    latMin: region.latMin,
-                    latMax: region.latMax,
-                    longMin: region.longMin,
-                    longMax: region.longMax,
-                    centerLat: region.centerLat,
-                    centerLong: region.centerLong,
-                    weathers: newWeathers,
-                    id: region.id
-                });
-            }else{
-                return region;
-            }
-        })
-        console.log(filteredRegions)
-        setRegions(filteredRegions)
+        // const filteredRegions = regions.map((region) => {
+        //     if(region.id === newWeather.region.id){
+        //         const newWeathers = [...region.weathers, newWeather]
+        //         return({
+        //             name: region.name,
+        //             latMin: region.latMin,
+        //             latMax: region.latMax,
+        //             longMin: region.longMin,
+        //             longMax: region.longMax,
+        //             centerLat: region.centerLat,
+        //             centerLong: region.centerLong,
+        //             weathers: newWeathers,
+        //             id: region.id
+        //         });
+        //     }else{
+        //         return region;
+        //     }
+        // })
+        // console.log(filteredRegions)
+        // setRegions(filteredRegions)
         const weathArr = [...weathers, newWeather]
         console.log(weathArr)
         setWeathers(weathArr)
     }
-
-
 
    function handleDelete(id) {
        const filteredWeathers = weathers.filter(weather => {
           return (weather.id !== id) 
        })
 
-       const filteredRegions = regions.map((region) => {
-           const newWeathers = region.weathers.filter((weather) => {
-                return weather.id !== id
-           })
-           return({
-                name: region.name,
-                latMin: region.latMin,
-                latMax: region.latMax,
-                longMin: region.longMin,
-                longMax: region.longMax,
-                centerLat: region.centerLat,
-                centerLong: region.centerLong,
-                weathers: newWeathers,
-                id: region.id
-           });
-       })
-       setRegions(filteredRegions)
-       console.log(filteredRegions)
-       console.log(regions)
+    //    const filteredRegions = regions.map((region) => {
+    //        const newWeathers = region.weathers.filter((weather) => {
+    //             return weather.id !== id
+    //        })
+    //        return({
+    //             name: region.name,
+    //             latMin: region.latMin,
+    //             latMax: region.latMax,
+    //             longMin: region.longMin,
+    //             longMax: region.longMax,
+    //             centerLat: region.centerLat,
+    //             centerLong: region.centerLong,
+    //             weathers: newWeathers,
+    //             id: region.id
+    //        });
+    //    })
+    //    setRegions(filteredRegions)
+    //    console.log(filteredRegions)
+    //    console.log(regions)
        setWeathers(filteredWeathers)
     }
+
+    const tempColors = {
+        "1": "#42A5F5",
+        "2": "#3F51B5",
+        "3": "#5E35B1",
+        "4": "#7B1FA2",
+        "5": "#AD1457",
+        "6": "#B71C1C"
+    } 
 
     const featureGroups = regions.map((region) => {
         const rectangle = [
@@ -98,13 +102,11 @@ function MainPage({currentUser}) {
             [region["latMax"], region["longMax"]]
         ]
 
-        if(region.weathers.length > 0){
-            const weather = weathers.find((weather) => {
-                return weather.region.id === region.id
-            })
-            
-            
+        const weather = weathers.find((weather) => {
+            return weather.region.id === region.id
+        })
 
+        if(weather){
             return(
                 <FeatureGroup key={region.id}>
                     <ImageOverlay url="https://media.giphy.com/media/3ohzdUimZF7zrY0fWo/giphy.gif" bounds={rectangle} opacity={0.6} play={false}/>
@@ -121,7 +123,7 @@ function MainPage({currentUser}) {
                             </div>
                         </div>
                     </Popup>
-                    <Rectangle bounds={rectangle} />
+                    <Rectangle bounds={rectangle} fillColor={tempColors[weather.temp]} opacity={0} />
                 </FeatureGroup>
             )
         }else {
@@ -131,7 +133,7 @@ function MainPage({currentUser}) {
                     <Popup>
                         <NewWeatherForm currentUser={currentUser} region={region} onNewWeather={handleNewWeather}/>
                     </Popup>
-                    <Rectangle bounds={rectangle}/>
+                    <Rectangle bounds={rectangle} pathOptions={{fillOpacity: 0, opacity: 0}} />
                 </FeatureGroup>
             );
         }
