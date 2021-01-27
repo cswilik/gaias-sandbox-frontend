@@ -8,7 +8,7 @@ export const tempColors = {
 } 
 
 export const rainGifs = {
-    "1": "https://media.giphy.com/media/mno6BJfy8USic/giphy.gif",
+    "1": false,
     "2": "https://media.giphy.com/media/RI42LtoMA5mxi/giphy.gif",
     "3": "https://media.giphy.com/media/3ohzdUimZF7zrY0fWo/giphy.gif",
     "4": "https://media.giphy.com/media/3ohzdUimZF7zrY0fWo/giphy.gif",
@@ -16,38 +16,47 @@ export const rainGifs = {
     "6": "https://media.giphy.com/media/FoVi0LDjy1XS8/giphy.gif"
 }
 
+export const windGifs = {
+    "1": false,
+    "2": "https://media.giphy.com/media/PhfMmMOGMOpAK5YNrD/giphy.gif",
+    "3": "https://media.giphy.com/media/3o6nUOJSYNdryX5CVi/giphy.gif",
+    "4": false,
+    "5": false,
+    "6": "https://media.giphy.com/media/nMT8FHxdwgCnS/giphy.gif"
+}
+
 export const tempScale = {
-    1: "artic cold",
-    2: "below feezing",
-    3: "cold",
-    4: "warm",
-    5: "hot",
-    6: "scorching"
+    1: "Artic cold 🥶",
+    2: "Below feezing 🧊",
+    3: "Cold ❄️",
+    4: "Warm ☀️",
+    5: "Hot 🌡️",
+    6: "scorching 🔥"
 }
 
 export const windScale = {
-    1: "no wind",
-    2: "light breeze",
-    3: "windy",
-    4: "stormy",
-    5: "heavy gale",
-    6: "hurricane"
+    1: "No wind 🍂",
+    2: "Light breeze 🍃",
+    3: "Windy 💨",
+    4: "Stormy 🌬️",
+    5: "Heavy gale 🌀",
+    6: "Hurricane 🌪️"
 }
 
 export const rainScale = {
-    1: "no rain",
-    2: "misty",
-    3: "rainy",
-    4: "torrential downpour",
-    5: "light snow",
-    6: "blizzard"
+    1: "No rain 🌈",
+    2: "Misty 🌫️",
+    3: "Rainy 💧",
+    4: "Torrential downpour ☂️",
+    5: "Light snow ❄️",
+    6: "Blizzard 🌨️"
 }
 
 export const cloudScale = {
-    1: "clear skies",
-    2: "partly cloudly",
-    3: "full coverage",
-    4: "oncoming storm",
-    5: "overcast",
-    6: "blots out the sky"
+    1: "clear skies ☀️",
+    2: "partly cloudly 🌤️",
+    3: "full coverage 🌥️",
+    4: "oncoming storm 💭",
+    5: "overcast ☁️",
+    6: "blots out the sky ⬛"
 }

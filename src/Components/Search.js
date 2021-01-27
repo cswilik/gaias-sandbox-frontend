@@ -14,7 +14,7 @@ function Search({onSetPosition}){
         evt.preventDefault();
         console.log("clicked")
         const searchedState = states.find(state => {
-            return state.name.toLowerCase().includes(search)
+            return state.name.toLowerCase().includes(search.toLowerCase())
             
         })
         
@@ -25,14 +25,15 @@ function Search({onSetPosition}){
     }
 
     return(
-        <form onSubmit={handleSearchSubmit}>
+        <form className="searchBar" onSubmit={handleSearchSubmit}>
             <input
-            type="text"
+            type="search"
             value={search}
             placeholder="Search..." 
             onChange={(evt) => {setSearch(evt.target.value)}}
             />
-            <button type="submit">Search</button>
+            {/* <i className="fa fa-search"></i> */}
+            <button type="submit" className="fa fa-search"></button>
         </form>
     );
 }

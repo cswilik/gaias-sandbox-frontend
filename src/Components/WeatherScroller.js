@@ -7,14 +7,13 @@ function WeatherScroller({allWeathers, regions}) {
             return weather.region.id === region.id
         })
        
-
         return(
-            <div className="ticker-item" key={region.id}><b>{region.name}</b>: {weather ? weather.description : "CATASTROPHE"}</div>
+            <div className="ticker-item" key={region.id}><b>{region.name.toUpperCase()}</b>: {weather ? weather.description : "CATASTROPHE"}</div>
         );
     })
 
     return(
-        <div>
+        <div className="scroller">
             <div className="tcontainer"><div className="ticker-wrap"><div className="ticker-move">
                 {tickerItems}
             </div></div></div>
