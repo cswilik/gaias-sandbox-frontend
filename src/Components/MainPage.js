@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, FeatureGroup, Rectangle, ImageO
 import WeatherDetail from "./WeatherDetail";
 import WeatherForm from "./WeatherForm";
 import NewWeatherForm from "./NewWeatherForm";
+import { rainGifs, tempColors, windGifs } from "./HashMaps";
 
 function MainPage({currentUser}) {
     const [weathers, setWeathers] = useState([])
@@ -23,8 +24,6 @@ function MainPage({currentUser}) {
         .then(data => setRegions(data))
     }, [])
 
-   
-
     function handleWeatherForm(newFormData) {
         const updatedWeathers =  weathers.map(weather => {
             if (weather.id === newFormData.id) {
@@ -36,59 +35,16 @@ function MainPage({currentUser}) {
         setWeathers(updatedWeathers)
     }
 
-    
     function handleNewWeather(newWeather) {
-        const filteredRegions = regions.map((region) => {
-            if(region.id === newWeather.region.id){
-                const newWeathers = [...region.weathers, newWeather]
-                return({
-                    name: region.name,
-                    latMin: region.latMin,
-                    latMax: region.latMax,
-                    longMin: region.longMin,
-                    longMax: region.longMax,
-                    centerLat: region.centerLat,
-                    centerLong: region.centerLong,
-                    weathers: newWeathers,
-                    id: region.id
-                });
-            }else{
-                return region;
-            }
-        })
-        console.log(filteredRegions)
-        setRegions(filteredRegions)
         const weathArr = [...weathers, newWeather]
-        console.log(weathArr)
         setWeathers(weathArr)
     }
-
-
 
    function handleDelete(id) {
        const filteredWeathers = weathers.filter(weather => {
           return (weather.id !== id) 
        })
 
-       const filteredRegions = regions.map((region) => {
-           const newWeathers = region.weathers.filter((weather) => {
-                return weather.id !== id
-           })
-           return({
-                name: region.name,
-                latMin: region.latMin,
-                latMax: region.latMax,
-                longMin: region.longMin,
-                longMax: region.longMax,
-                centerLat: region.centerLat,
-                centerLong: region.centerLong,
-                weathers: newWeathers,
-                id: region.id
-           });
-       })
-       setRegions(filteredRegions)
-       console.log(filteredRegions)
-       console.log(regions)
        setWeathers(filteredWeathers)
     }
 
@@ -98,21 +54,19 @@ function MainPage({currentUser}) {
             [region["latMax"], region["longMax"]]
         ]
 
-        if(region.weathers.length > 0){
-            const weather = weathers.find((weather) => {
-                return weather.region.id === region.id
-            })
-            
-            
+        const weather = weathers.find((weather) => {
+            return weather.region.id === region.id
+        })
 
+        if(weather){
             return(
                 <FeatureGroup key={region.id}>
-                    <ImageOverlay url="https://media.giphy.com/media/3ohzdUimZF7zrY0fWo/giphy.gif" bounds={rectangle} opacity={0.6} play={false}/>
+                    {rainGifs[weather.rain] ? <ImageOverlay url={rainGifs[weather.rain]} bounds={rectangle} opacity={0.8} play={false}/> : null}
+                    {windGifs[weather.wind] ? <ImageOverlay url={windGifs[weather.wind]} bounds={rectangle} opacity={0.7} play={false}/> : null}
                     <Popup>
                         <div className="flip-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-
                                     <WeatherDetail region={region} weather={weather} />
                                 </div>
                                 <div className="flip-card-back">
@@ -121,29 +75,29 @@ function MainPage({currentUser}) {
                             </div>
                         </div>
                     </Popup>
-                    <Rectangle bounds={rectangle} />
+                    <Rectangle bounds={rectangle} fillColor={tempColors[weather.temp]} opacity={0} />
                 </FeatureGroup>
             )
         }else {
             return(
                 <FeatureGroup key={region.id}>
-                    <ImageOverlay url="https://j.gifs.com/vq8EXV.gif" bounds={rectangle} opacity={0.6} play={false}/>
+                    <ImageOverlay url="https://media.giphy.com/media/XrNry0aqYWEhi/giphy.gif" bounds={rectangle} opacity={0.8} play={false}/>
                     <Popup>
                         <NewWeatherForm currentUser={currentUser} region={region} onNewWeather={handleNewWeather}/>
                     </Popup>
-                    <Rectangle bounds={rectangle}/>
+                    <Rectangle bounds={rectangle} pathOptions={{fillOpacity: 0, opacity: 0}} />
                 </FeatureGroup>
             );
         }
     })
-
+// "https://j.gifs.com/vq8EXV.gif"
     const TheMap = () => {
 
         return (
            <MapContainer
             center={position}
             zoom={5}
-            style={{ width: '80%', height: '80%', margin: "auto" }}
+            style={{ width: '80%', height: '80%', margin: "auto", boxShadow: '5px 5px 30px 2px rgba(255,255,255,0.75)' }}
             >
                 <TileLayer
                     url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'

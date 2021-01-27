@@ -1,3 +1,9 @@
+Things i did overnight:
+added hashmaps file to factor out our tables
+made featureGroups logic way better using just weathers.find
+added hashmaps for color and gif options based on temp and rain settings of weather
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

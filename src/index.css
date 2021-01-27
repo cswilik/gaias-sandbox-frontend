@@ -1,3 +1,14 @@
+
+@font-face {
+  font-family: headerFont;
+  src: url(./Fonts/Cinzel-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: tickerFont;
+  src: url(./Fonts/digital-7.ttf);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +16,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
 }
 
 code {
@@ -13,7 +25,13 @@ code {
 }
 
 .header {
-  margin-bottom: 30px;
+  font-family: headerFont;
+  color: white;
+  font-weight: 900;
+  height: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-image: url("https://media.giphy.com/media/XfyroVlIQFz0Y/giphy.gif");
 }
 
 .button {
@@ -24,10 +42,14 @@ code {
 
 .title {
   display: inline;
+  font-family: headerFont;
+  font-size: 50px;
+  /* padding-top: 30px; */
 }
 
+
+
 .main-page {
-  /* background: url("./images/RegionMap.png") no-repeat center center; */
   background-size: contain;
   width: 100vw;
   height: 100vh;
@@ -58,18 +80,19 @@ code {
   /* width: 80%; */
 }
 
-.leaflet-popup-content-wrapper{
+/* .leaflet-popup-content-wrapper{
   background-color: black;
   color: white;
 }
 
 .leaflet-popup-tip-container {
   color: black;
-}
+} */
 
 /* OUTER CONTAINER */
 .tcontainer {
   width: 100%;
+  padding-bottom: 20px;
   overflow: hidden; /* Hide scroll bar */
 }
  
@@ -77,7 +100,8 @@ code {
 .ticker-wrap {
   width: 100%;
   padding-left: 100%; /* Push contents to right side of screen */
-  background-color: #eee;
+  background-color: rgb(27, 27, 27);
+  box-shadow: 0px 0px 40px 0px rgba(27, 27, 27);
 }
 
 /* INNER CONTAINER */
@@ -95,6 +119,7 @@ code {
   animation-name: ticker;
   animation-duration: 40s;
 }
+
 .ticker-move:hover{
   animation-play-state: paused; /* Pause scroll on mouse hover */
 }
@@ -102,15 +127,23 @@ code {
 /* ITEMS */
 .ticker-item{
   display: inline-block; /* Lay items in a horizontal line */
+  font-family: tickerFont;
+  font-size: xx-large;
+  color: white;
   padding: 0 2rem;
+}
+
+.ticker-item b{
+  color: red;
 }
 
 .flip-card {
   background-color: transparent;
   width: 300px;
-  height: 200px;
-  border: 1px solid #f1f1f1;
+  height: 300px;
+  /* border: 1px solid #f1f1f1; */
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  overflow: auto;
 }
 
 .flip-card-inner {
@@ -135,12 +168,73 @@ code {
 }
 
 .flip-card-front {
-  background-color: #bbb;
+  /* background-color: #bbb; */
   color: black;
 }
 
 .flip-card-back {
-  background-color: dodgerblue;
+  /* background-color: dodgerblue; */
   color: white;
   transform: rotateY(180deg);
 }
+
+.searchBar {
+  padding-left: 20px;
+  padding-bottom: 10px;
+   /* position: relative;
+    top: 50%;
+    left: 90%; 
+    transform: translate(-50%,-50%);
+    transition: all 1s;
+    width: 50px;
+    height: 50px;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 4px solid white;
+    padding: 5px;
+    */
+}
+/*
+.searchInput {
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;;
+    height: 42.5px;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    display: none;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0 20px; }
+
+.fa{
+  box-sizing: border-box;
+  padding: 10px;
+  width: 42.5px;
+  height: 42.5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  color: #07051a;
+  text-align: center;
+  font-size: 1.2em;
+  transition: all 1s;
+}
+
+.searchBar:hover{
+  width: 200px;
+  cursor: pointer;
+}
+
+.searchInput:hover {
+  display: block;
+}
+
+.searchBar:hover .fa{
+  background: #07051a ;
+  color: white;
+} */

@@ -18,6 +18,7 @@ function Header({currentUser, setCurrentUser}) {
     return (
         <header className="header">
             <h1 className='title'>Gaia's Sandbox</h1>
+            <button>Swap Mode</button>
         
         {currentUser ? (
             <button className="button" onClick={logout}>Logout</button>

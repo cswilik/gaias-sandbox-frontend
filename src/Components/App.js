@@ -8,8 +8,7 @@ import MainPage from "./MainPage"
 function App() {
   const [users, setUsers] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
-  
-
+  const [darkMode, setDarkMode] = useState(true)
 
   
   useEffect(() => {
@@ -24,7 +23,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} setDarkMode={setDarkMode}/>
       <Route exact path= '/'>
         <Login users={users} onSetCurrentUser={setCurrentUser} />
       </Route>
