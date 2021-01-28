@@ -1,6 +1,7 @@
 import React, {useState} from "react"
+import {tempScale, rainScale, cloudScale, windScale} from "./HashMaps";
 
-function NewWeatherForm({region, currentUser, onNewWeather}) {
+function NewWeatherForm({region, currentUser, onNewWeather, onSetPosition}) {
     const [description, setDescription] = useState("")
     const [temp, setTemp] = useState(1)
     const [rain, setRain] = useState(1)
@@ -27,54 +28,58 @@ function NewWeatherForm({region, currentUser, onNewWeather}) {
             body: JSON.stringify(newWeather),
         }).then(r => r.json())
         .then(data => {
-            console.log(data)
+            onSetPosition([region.centerLat, region.centerLong])
             onNewWeather(data)
         })
     }
     
     return (  
-        <form onSubmit={handleSubmit}>
-            <label>CREATE A WEATHER</label>
-            <br></br>
+        <form className="weather-form" onSubmit={handleSubmit}>
+            <label><h2>CREATE A WEATHER</h2></label>
+            <label><b>Description:</b></label> 
             <input type="text" value={description} placeholder="describe the conditions" onChange={(evt) => {setDescription(evt.target.value)}}></input>
             <br></br>
+            <label><b>Temp:</b></label>
             <select id="temp" name="temp" value={temp} onChange={(evt) => {setTemp(evt.target.value)}}>
-    a            <option value="1">artic cold</option>
-                <option value="2">below feezing</option>
-                <option value="3">cold</option>
-                <option value="4">warm</option>
-                <option value="5">hot</option>
-                <option value="6">scorching</option>
+    a           <option value="1">{tempScale[1]}</option>
+                <option value="2">{tempScale[2]}</option>
+                <option value="3">{tempScale[3]}</option>
+                <option value="4">{tempScale[4]}</option>
+                <option value="5">{tempScale[5]}</option>
+                <option value="6">{tempScale[6]}</option>
             </select>
             <br></br>
+            <label><b>Rain:</b></label> 
             <select id="rain" name="rain" value={rain} onChange={(evt) => {setRain(evt.target.value)}}>
-                <option value="1">No Rain</option>
-                <option value="2">Misty</option>
-                <option value="3">Rainy</option>
-                <option value="4">Torrential Downpour</option>
-                <option value="5">Light Snow</option>
-                <option value="6">Blizzard</option>
+                <option value="1">{rainScale[1]}</option>
+                <option value="2">{rainScale[2]}</option>
+                <option value="3">{rainScale[3]}</option>
+                <option value="4">{rainScale[4]}</option>
+                <option value="5">{rainScale[5]}</option>
+                <option value="6">{rainScale[6]}</option>
             </select>
             <br></br>
+            <label><b>Cloud:</b></label> 
             <select id="cloud" name="cloud" value={cloud} onChange={(evt) => {setCloud(evt.target.value)}}>
-                <option value="1">clear skies</option>
-                <option value="2">partly cloudly</option>
-                <option value="3">full coverage</option>
-                <option value="4">oncoming storm</option>
-                <option value="5">overcast</option>
-                <option value="6">blots out the sky</option>
+            <option value="1">{cloudScale[1]}</option>
+                <option value="2">{cloudScale[2]}</option>
+                <option value="3">{cloudScale[3]}</option>
+                <option value="4">{cloudScale[4]}</option>
+                <option value="5">{cloudScale[5]}</option>
+                <option value="6">{cloudScale[6]}</option>
             </select>
             <br></br>
+            <label><b>Wind:</b></label> 
             <select id="wind" name="wind" value={wind} onChange={(evt) => {setWind(evt.target.value)}}>
-                <option value="1">no wind</option>
-                <option value="2">light breeze</option>
-                <option value="3">windy</option>
-                <option value="4">stormy</option>
-                <option value="5">heavy gale</option>
-                <option value="6">hurricane</option>
+            <option value="1">{windScale[1]}</option>
+                <option value="2">{windScale[2]}</option>
+                <option value="3">{windScale[3]}</option>
+                <option value="4">{windScale[4]}</option>
+                <option value="5">{windScale[5]}</option>
+                <option value="6">{windScale[6]}</option>
             </select>
             <br></br>
-            <button type="submit">Submit</button>
+            <button className="btn-submit" type="submit">Submit</button>
         </form>
     )
 }

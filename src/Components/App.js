@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { Route} from 'react-router-dom'
-// import { Switch } from 'react-router-dom'
 import Header from './Header';
 import Login from "./Login"
 import MainPage from "./MainPage"
+// import Video from "./Video"
 
 function App() {
   const [users, setUsers] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
-  const [darkMode, setDarkMode] = useState(true)
+  
 
   
   useEffect(() => {
@@ -23,11 +23,14 @@ function App() {
 
   return (
     <div className="App">
-      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} setDarkMode={setDarkMode}/>
+      {/* <Header currentUser={currentUser} setCurrentUser={setCurrentUser} setDarkMode={setDarkMode}/> */}
       <Route exact path= '/'>
-        <Login users={users} onSetCurrentUser={setCurrentUser} />
+        <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
+        <Login users={users} onSetCurrentUser={setCurrentUser} setUsers={setUsers} />
       </Route>
+      
       <Route path = '/mainpage'>
+        <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
         <MainPage currentUser={currentUser} />
       </Route>
     </div>

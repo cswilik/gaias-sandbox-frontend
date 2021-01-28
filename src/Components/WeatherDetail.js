@@ -3,7 +3,7 @@ import {tempScale, windScale, rainScale, cloudScale} from "./HashMaps";
 
 function WeatherDetail({weather, region}) {
     return(
-        <div>
+        <div >
             <h2>{region.name.toUpperCase()}</h2>
             <p><b>Description:</b> {weather.description}</p>
             <p><b>Temp:</b> {tempScale[weather.temp]}</p>

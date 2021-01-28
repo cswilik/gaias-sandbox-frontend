@@ -1,17 +1,26 @@
 export const tempColors = {
-    "1": "#00BCD4",
-    "2": "#2196F3",
-    "3": "#3F51B5",
-    "4": "#9C27B0",
-    "5": "#E91E63",
-    "6": "#FF0000"
+    "1": "#ffffff",
+    "2": "#b3ffff",
+    "3": "#00ffff",
+    "4": "#ffff00",
+    "5": "#ff8000",
+    "6": "#ff0000"
 } 
+
+export const cloudGifs = {
+    "1": "https://media.giphy.com/media/o7R0zQ62m8Nk4/giphy.gif",
+    "2": "https://media.giphy.com/media/QH6ytk1V9IExi/giphy.gif",
+    "3": false,
+    "4": false,
+    "5": false,
+    "6": false
+}
 
 export const rainGifs = {
     "1": false,
     "2": "https://media.giphy.com/media/RI42LtoMA5mxi/giphy.gif",
-    "3": "https://media.giphy.com/media/3ohzdUimZF7zrY0fWo/giphy.gif",
-    "4": "https://media.giphy.com/media/3ohzdUimZF7zrY0fWo/giphy.gif",
+    "3": "https://media.giphy.com/media/3ohs87YZvG2aEAA75e/giphy.gif",
+    "4": "https://media.giphy.com/media/3ohs87YZvG2aEAA75e/giphy.gif",
     "5": "https://media.giphy.com/media/FoVi0LDjy1XS8/giphy.gif",
     "6": "https://media.giphy.com/media/FoVi0LDjy1XS8/giphy.gif"
 }
@@ -20,9 +29,9 @@ export const windGifs = {
     "1": false,
     "2": "https://media.giphy.com/media/PhfMmMOGMOpAK5YNrD/giphy.gif",
     "3": "https://media.giphy.com/media/3o6nUOJSYNdryX5CVi/giphy.gif",
-    "4": false,
-    "5": false,
-    "6": "https://media.giphy.com/media/nMT8FHxdwgCnS/giphy.gif"
+    "4": "https://media.giphy.com/media/HmTLatwLWpTQk/giphy.gif",
+    "5": "https://media.giphy.com/media/nMT8FHxdwgCnS/giphy.gif",
+    "6": "https://media.giphy.com/media/MXvDhlmD0eB5qNvvjZ/giphy.gif"
 }
 
 export const tempScale = {
@@ -39,8 +48,8 @@ export const windScale = {
     2: "Light breeze 🍃",
     3: "Windy 💨",
     4: "Stormy 🌬️",
-    5: "Heavy gale 🌀",
-    6: "Hurricane 🌪️"
+    5: "Hurricane 🌀",
+    6: "Tornado 🌪️"
 }
 
 export const rainScale = {

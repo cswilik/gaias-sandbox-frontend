@@ -1,10 +1,10 @@
 import React from "react";
 
-function WeatherScroller({allWeathers, regions}) {
+function WeatherScroller({allWeathers, regions, currentUser}) {
 
     let tickerItems = regions.map(region => {
         const weather = allWeathers.find((weather) => {
-            return weather.region.id === region.id
+            return weather.region.id === region.id && weather.user.id === currentUser.id
         })
        
         return(

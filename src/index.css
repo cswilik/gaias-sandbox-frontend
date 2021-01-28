@@ -34,10 +34,31 @@ code {
   background-image: url("https://media.giphy.com/media/XfyroVlIQFz0Y/giphy.gif");
 }
 
-.button {
+.btn-login, .btn-logout {
   display: inline;
   margin:  10px;
   float: right;
+  background-color: blue;
+  color: white;
+  box-shadow: 0px 0px 10px 2px darkblue;
+}
+
+.btn-danger {
+  background-color: red;
+  color: white;
+  border: none;
+  box-shadow: 0px 0px 10px 2px darkred;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.btn-submit {
+  background-color: green;
+  color: white;
+  border: none;
+  box-shadow: 0px 0px 10px 2px darkgreen;
+  font-weight: bold;
+  margin: 10px;
 }
 
 .title {
@@ -47,7 +68,36 @@ code {
   /* padding-top: 30px; */
 }
 
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
 
+/* Control the left side */
+.left {
+  left: 0;
+  
+  /* background-color: #111; */
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  /* background-color: red; */
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 
 .main-page {
   background-size: contain;
@@ -55,39 +105,24 @@ code {
   height: 100vh;
 }
 
-/* MODAL TEST STYLE FOR POPUP */
-.modal-div {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  margin: 0 auto;
-  z-index: 1; /* Sit on top */
-  /* left: 0;
-  top: 0; */
-  width: 100%;
-  height: 100%; 
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
+.weather-form select{
+  margin: 5px;
 }
 
-.modal-content {
-  background-color: rgba(0,0,0,0.4);
-  margin: 5% 25%; 
-  /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  height: 50%;
-  /* width: 80%; */
-}
-
-/* .leaflet-popup-content-wrapper{
-  background-color: black;
+.weather-form label{
+  margin: 5px;
+  font-weight: bolder;
   color: white;
+}
+
+.leaflet-popup-content-wrapper{
+  background-color: black;
+  color: white; 
 }
 
 .leaflet-popup-tip-container {
   color: black;
-} */
+}
 
 /* OUTER CONTAINER */
 .tcontainer {
@@ -150,7 +185,6 @@ code {
   position: relative;
   width: 100%;
   height: 100%;
-  text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
 }
@@ -165,11 +199,12 @@ code {
   height: 100%;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
+  font-size: 13px;
 }
 
 .flip-card-front {
   /* background-color: #bbb; */
-  color: black;
+  color: white
 }
 
 .flip-card-back {
@@ -179,9 +214,9 @@ code {
 }
 
 .searchBar {
-  padding-left: 20px;
-  padding-bottom: 10px;
-   /* position: relative;
+  margin-left: 100px;
+  margin-top: 20px;
+   /* position: relative; */
     top: 50%;
     left: 90%; 
     transform: translate(-50%,-50%);
@@ -190,12 +225,12 @@ code {
     height: 50px;
     background: white;
     box-sizing: border-box;
-    border-radius: 25px;
+    border-radius: 25px;  
     border: 4px solid white;
     padding: 5px;
-    */
+   
 }
-/*
+
 .searchInput {
   position: absolute;
     top: 0;
@@ -205,7 +240,7 @@ code {
     line-height: 30px;
     outline: 0;
     border: 0;
-    display: none;
+    /* display: none; */
     font-size: 1em;
     border-radius: 20px;
     padding: 0 20px; }
@@ -223,6 +258,7 @@ code {
   text-align: center;
   font-size: 1.2em;
   transition: all 1s;
+  border: none;
 }
 
 .searchBar:hover{
@@ -237,4 +273,13 @@ code {
 .searchBar:hover .fa{
   background: #07051a ;
   color: white;
-} */
+}
+
+.auth-form input {
+  margin: 5px
+}
+
+.login-page{
+  width: 100vw;
+  height: 100vh;
+}

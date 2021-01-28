@@ -27,6 +27,7 @@ function Search({onSetPosition}){
     return(
         <form className="searchBar" onSubmit={handleSearchSubmit}>
             <input
+            className="searchInput"
             type="search"
             value={search}
             placeholder="Search..." 

@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, FeatureGroup, Rectangle, ImageO
 import WeatherDetail from "./WeatherDetail";
 import WeatherForm from "./WeatherForm";
 import NewWeatherForm from "./NewWeatherForm";
-import { rainGifs, tempColors, windGifs } from "./HashMaps";
+import { rainGifs, tempColors, windGifs, cloudGifs } from "./HashMaps";
 
 function MainPage({currentUser}) {
     const [weathers, setWeathers] = useState([])
@@ -33,18 +33,22 @@ function MainPage({currentUser}) {
             }
         })
         setWeathers(updatedWeathers)
+        
     }
 
     function handleNewWeather(newWeather) {
         const weathArr = [...weathers, newWeather]
+        
         setWeathers(weathArr)
     }
+
+
 
    function handleDelete(id) {
        const filteredWeathers = weathers.filter(weather => {
           return (weather.id !== id) 
        })
-
+       setPosition([37.0902, - 95.7129])
        setWeathers(filteredWeathers)
     }
 
@@ -55,14 +59,16 @@ function MainPage({currentUser}) {
         ]
 
         const weather = weathers.find((weather) => {
-            return weather.region.id === region.id
+            return weather.region.id === region.id && weather.user.id === currentUser.id
         })
 
         if(weather){
             return(
                 <FeatureGroup key={region.id}>
-                    {rainGifs[weather.rain] ? <ImageOverlay url={rainGifs[weather.rain]} bounds={rectangle} opacity={0.8} play={false}/> : null}
-                    {windGifs[weather.wind] ? <ImageOverlay url={windGifs[weather.wind]} bounds={rectangle} opacity={0.7} play={false}/> : null}
+                    <Rectangle bounds={rectangle} fillColor={(weather.cloud === 6) ? "black" : tempColors[weather.temp]} opacity={0} />
+                    {rainGifs[weather.rain] ? <ImageOverlay url={rainGifs[weather.rain]} bounds={rectangle} opacity={0.6} play={false}/> : null}
+                    {windGifs[weather.wind] ? <ImageOverlay url={windGifs[weather.wind]} bounds={rectangle} opacity={0.4} play={false}/> : null}
+                    {cloudGifs[weather.cloud] ? <ImageOverlay url={cloudGifs[weather.cloud]} bounds={rectangle} opacity={0.3} play={false}/> : null}
                     <Popup>
                         <div className="flip-card">
                             <div className="flip-card-inner">
@@ -75,15 +81,14 @@ function MainPage({currentUser}) {
                             </div>
                         </div>
                     </Popup>
-                    <Rectangle bounds={rectangle} fillColor={tempColors[weather.temp]} opacity={0} />
                 </FeatureGroup>
             )
         }else {
             return(
                 <FeatureGroup key={region.id}>
-                    <ImageOverlay url="https://media.giphy.com/media/XrNry0aqYWEhi/giphy.gif" bounds={rectangle} opacity={0.8} play={false}/>
+                    <ImageOverlay url="https://media.giphy.com/media/XrNry0aqYWEhi/giphy.gif" bounds={rectangle} play={false}/>
                     <Popup>
-                        <NewWeatherForm currentUser={currentUser} region={region} onNewWeather={handleNewWeather}/>
+                        <NewWeatherForm onSetPosition={setPosition} currentUser={currentUser} region={region} onNewWeather={handleNewWeather}/>
                     </Popup>
                     <Rectangle bounds={rectangle} pathOptions={{fillOpacity: 0, opacity: 0}} />
                 </FeatureGroup>
@@ -118,7 +123,7 @@ function MainPage({currentUser}) {
    
     return(
         <div className="main-page">
-            <WeatherScroller allWeathers={weathers} regions={regions}/>
+            <WeatherScroller allWeathers={weathers} regions={regions} currentUser={currentUser} />
             <Search onSetPosition={setPosition} />
             <TheMap />
         </div>

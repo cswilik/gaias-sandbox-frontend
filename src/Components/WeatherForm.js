@@ -43,11 +43,12 @@ function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDel
    
     return(
         <>
-        <form onSubmit={handleSubmit}>
-            <label>CONTROL THE WEATHER</label>
-            <br></br>
+        <form className="weather-form" onSubmit={handleSubmit}>
+            <label><h2>CONTROL THE WEATHER</h2></label>
+            <label><b>Description:</b></label> 
             <input type="text" value={description} placeholder={weather.description} onChange={(evt) => {setDescription(evt.target.value)}}></input>
             <br></br>
+            <label><b>Temp:</b></label> 
             <select id="temp" name="temp" value={temp} onChange={(evt) => {setTemp(evt.target.value)}}>
                 <option value="1">{tempScale[1]}</option>
                 <option value="2">{tempScale[2]}</option>
@@ -57,6 +58,7 @@ function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDel
                 <option value="6">{tempScale[6]}</option>
             </select>
             <br></br>
+            <label><b>Rain:</b></label> 
             <select id="rain" name="rain" value={rain} onChange={(evt) => {setRain(evt.target.value)}}>
                 <option value="1">{rainScale[1]}</option>
                 <option value="2">{rainScale[2]}</option>
@@ -66,6 +68,7 @@ function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDel
                 <option value="6">{rainScale[6]}</option>
             </select>
             <br></br>
+            <label><b>Cloud:</b></label> 
             <select id="cloud" name="cloud" value={cloud} onChange={(evt) => {setCloud(evt.target.value)}}>
                 <option value="1">{cloudScale[1]}</option>
                 <option value="2">{cloudScale[2]}</option>
@@ -75,6 +78,7 @@ function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDel
                 <option value="6">{cloudScale[6]}</option>
             </select>
             <br></br>
+            <label><b>Wind:</b></label> 
             <select id="wind" name="wind" value={wind} onChange={(evt) => {setWind(evt.target.value)}}>
                 <option value="1">{windScale[1]}</option>
                 <option value="2">{windScale[2]}</option>
@@ -84,10 +88,9 @@ function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDel
                 <option value="6">{windScale[6]}</option>
             </select>
             <br></br>
-            <button type="submit">Submit</button>
+            <button className="btn-submit" type="submit">Submit</button>
         </form>
-        <br></br>
-        <button onClick={handleDelete}>Apocalypse Now!!!! 🤯</button>
+        <button className="btn-danger" onClick={handleDelete}>APOCALYPSE NOW!!!! 🤯</button>
         </>
     );
 
