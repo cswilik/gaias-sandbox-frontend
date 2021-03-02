@@ -8,6 +8,7 @@ function Login({users, onSetCurrentUser, setUsers}) {
     const [signupUsername, setSignupUsername] = useState("")
     const [signupPassword, setSignupPassword] = useState("")
     const history = useHistory()
+    const url = process.env.NODE_ENV === 'production' ? "https://gaias-sandbox-backend.herokuapp.com" : "http://localhost:3000"
     
     function handleLogin(event){
         event.preventDefault();
@@ -33,7 +34,7 @@ function Login({users, onSetCurrentUser, setUsers}) {
 
     function handleSignUp(event){
         event.preventDefault();
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/users`, {
+        fetch(`${url}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

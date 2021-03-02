@@ -8,11 +8,11 @@ import MainPage from "./MainPage"
 function App() {
   const [users, setUsers] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
-  
+  const url = process.env.NODE_ENV === 'production' ? "https://gaias-sandbox-backend.herokuapp.com" : "http://localhost:3000"
 
   
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/users`)
+    fetch(`${url}/users`)
       .then(resp => resp.json())
       .then(data => {
         console.log(data)

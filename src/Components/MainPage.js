@@ -11,15 +11,16 @@ function MainPage({currentUser}) {
     const [weathers, setWeathers] = useState([])
     const [regions, setRegions] = useState([])
     const [position, setPosition] = useState([37.0902, - 95.7129])
+    const url = process.env.NODE_ENV === 'production' ? "https://gaias-sandbox-backend.herokuapp.com" : "http://localhost:3000"
     
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers`)
+        fetch(`${url}/weathers`)
           .then(resp => resp.json())
           .then(data => setWeathers(data))
       }, [])
 
     useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/regions`)
+    fetch(`${url}/regions`)
         .then(resp => resp.json())
         .then(data => setRegions(data))
     }, [])

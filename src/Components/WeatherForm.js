@@ -7,6 +7,7 @@ function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDel
     const [rain, setRain] = useState(weather.rain)
     const [cloud, setCloud] = useState(weather.cloud)
     const [wind, setWind] = useState(weather.wind)
+    const url = process.env.NODE_ENV === 'production' ? "https://gaias-sandbox-backend.herokuapp.com" : "http://localhost:3000"
 
     const formData = {
         id: weather.id,
@@ -19,7 +20,7 @@ function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDel
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers/${weather.id}`, {
+        fetch(`${url}/weathers/${weather.id}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ function WeatherForm({region, weather, onWeatherFormSubmit, onSetPosition, onDel
     }
 
     function handleDelete() {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers/${weather.id}`, {
+        fetch(`${url}/weathers/${weather.id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',

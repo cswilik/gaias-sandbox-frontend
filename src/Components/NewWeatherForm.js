@@ -7,6 +7,7 @@ function NewWeatherForm({region, currentUser, onNewWeather, onSetPosition}) {
     const [rain, setRain] = useState(1)
     const [cloud, setCloud] = useState(1)
     const [wind, setWind] = useState(1)
+    const url = process.env.NODE_ENV === 'production' ? "https://gaias-sandbox-backend.herokuapp.com" : "http://localhost:3000"
 
     const newWeather = {
         description: description,
@@ -20,7 +21,7 @@ function NewWeatherForm({region, currentUser, onNewWeather, onSetPosition}) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/weathers`, {
+        fetch(`${url}/weathers`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
