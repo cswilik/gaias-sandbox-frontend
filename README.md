@@ -11,7 +11,7 @@ Project is created with:
 To run this project, first follow the [backend setup](https://github.com/bstizzle/gaias-sandbox-backend)
 
 ```
-$ cd ../synthesizio-frontend
+$ cd ../gaias-sandbox-frontend
 $ npm install
 $ npm start
 ```
